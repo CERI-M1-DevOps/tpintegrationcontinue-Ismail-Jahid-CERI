@@ -24,7 +24,9 @@ jobs:
       - name: Configurer le jeton SonarCloud
         run: echo "SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}" >> $GITHUB_ENV
 
-
       - name: Build with Maven
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=$(echo ${{ github.repository }} | sed 's-/-_-')
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+                -Dsonar.projectKey=CERI-M1-DevOps_tpintegrationcontinue-Ismail-Jahid-CERI \
+                -Dsonar.organization=ceri-m1-devops \
+                -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
