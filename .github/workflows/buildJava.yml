@@ -1,0 +1,32 @@
+name: Java CI with Maven - Test and package
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+      - name: Setup Java 21 with Corretto
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'corretto'
+
+      - name: Configurer le jeton SonarCloud
+        run: echo "SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}" >> $GITHUB_ENV
+
+      - name: Build with Maven
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+                -Dsonar.projectKey=CERI-M1-DevOps_tpintegrationcontinue-Ismail-Jahid-CERI \
+                -Dsonar.organization=ceri-m1-devops \
+                -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
