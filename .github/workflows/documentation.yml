@@ -31,11 +31,6 @@ jobs:
                         - name: Generate Javadoc
                           run: mvn -B javadoc:javadoc
 
-                        - name: Delete previous artifact (if exists)
-                          uses: actions/delete-artifact@v2
-                          with:
-                                name: github-pages
-
 
                         - name: Deploy Javadoc to GitHub Pages
                           uses: peaceiris/actions-gh-pages@v4
