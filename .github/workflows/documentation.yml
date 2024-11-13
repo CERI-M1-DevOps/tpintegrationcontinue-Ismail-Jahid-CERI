@@ -5,15 +5,16 @@ name: Generate and Deploy Documentation
 
 
 on:
-        pull_request:
-                types: [closed]
+        push
+      #  pull_request:
+       #         types: [closed]
 
 permissions:
         contents: write
 
 jobs:
         build:
-                if: github.event.pull_request.merged == true
+            #    if: github.event.pull_request.merged == true
                 runs-on: ubuntu-latest
 
                 steps:
@@ -36,4 +37,4 @@ jobs:
                           uses: peaceiris/actions-gh-pages@v4
                           with:
                                   github_token: ${{ secrets.GITHUB_TOKEN }}
-                                  publish_dir: ./target/site/apidocs
+                                  publish_dir: ./target/reports/apidocs
