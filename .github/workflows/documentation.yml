@@ -1,38 +1,39 @@
+
+
 name: Generate and Deploy Documentation
 
 
 
 on:
-  pull_request:
-    types: [closed]
+        pull_request:
+                types: [closed]
 
-permission:
-        write: content
+permissions:
+        contents: write
 
 jobs:
-  build:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+        build:
+                if: github.event.pull_request.merged == true
+                runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-
-      - name: Setup Java 21 with Corretto
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'corretto'
+                steps:
+                        - name: Checkout code
+                          uses: actions/checkout@v4
 
 
-      - name: Generate Javadoc
-        run: mvn -B javadoc:javadoc
+                        - name: Setup Java 21 with Corretto
+                          uses: actions/setup-java@v4
+                          with:
+                                  java-version: '21'
+                                  distribution: 'corretto'
 
 
-      - name: Deploy Javadoc to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+                        - name: Generate Javadoc
+                          run: mvn -B javadoc:javadoc
 
+
+                        - name: Deploy Javadoc to GitHub Pages
+                          uses: peaceiris/actions-gh-pages@v4
+                          with:
+                                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                                  publish_dir: ./public
