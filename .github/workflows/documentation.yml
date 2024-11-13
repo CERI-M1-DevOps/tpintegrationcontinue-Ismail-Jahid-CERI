@@ -1,8 +1,13 @@
 name: Generate and Deploy Documentation
 
+
+
 on:
   pull_request:
     types: [closed]
+
+permission:
+        write: content
 
 jobs:
   build:
